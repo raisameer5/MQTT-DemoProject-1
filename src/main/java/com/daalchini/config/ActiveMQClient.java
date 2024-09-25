@@ -18,41 +18,36 @@ import com.daalchini.utility.UniqueClientIDGenerator;
         private final String BROKER_PASSWORD = "daalchini_noida";  
        
 
-        
         @Bean
         public ActiveMQConnectionFactory connectionFactory() {
             ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory();
             connectionFactory.setBrokerURL(BROKER_URL);           
             connectionFactory.setUserName(BROKER_USERNAME);        
             connectionFactory.setPassword(BROKER_PASSWORD);  
-            
             return connectionFactory;
         }
         
         @Bean
         public SingleConnectionFactory singleConnectionFactory() {
             SingleConnectionFactory singleConnectionFactory = new SingleConnectionFactory(connectionFactory());
-            singleConnectionFactory.setClientId(UniqueClientIDGenerator.generateClientId()); // Set the clientID here
+            singleConnectionFactory.setClientId("staticClientId"); // Use a static client ID
             return singleConnectionFactory;
         }
 
-
-       
         @Bean
         public JmsTemplate jmsTemplate() {
-          
             return new JmsTemplate(singleConnectionFactory()); 
         }
 
         @Bean
         public DefaultJmsListenerContainerFactory jmsListenerContainerFactory() {
             DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
-            
             factory.setConnectionFactory(singleConnectionFactory());
-            factory.setClientId(UniqueClientIDGenerator.generateClientId());
+            factory.setClientId("staticClientId"); // Ensure this matches
             factory.setSubscriptionDurable(true); 
             return factory;
         }
+       
       
 }
 

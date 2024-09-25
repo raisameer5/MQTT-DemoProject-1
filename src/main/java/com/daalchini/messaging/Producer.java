@@ -15,12 +15,9 @@ public class Producer {
 	 @Autowired
 	    private JmsTemplate jmsTemplate;
 
-	    public void sendMessage(String destination, String message) {
-	    	
-	    	logger.info("Sending message: {} to destination: {}", message, destination);
-	    	
+	 public void sendMessage(String destination, String message) {
+	        logger.info("Sending message: {} to destination: {}", message, destination);
 	        jmsTemplate.convertAndSend(destination, message);
-	        
 	        logger.info("Message sent successfully");
 	    }
 	        

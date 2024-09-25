@@ -16,9 +16,30 @@ public class MessageController {
     private Producer producer;
 
     @PostMapping("/send")
-    public String sendMessage(@RequestBody String message) {
-    	
-        producer.sendMessage("test-topic", message);
-        return "Message sent: " + message;
+    public String sendMessage(@RequestBody MessageRequest messageRequest) {
+        // Send to the specified topic
+        producer.sendMessage(messageRequest.getDestination(), messageRequest.getMessage());
+        return "Message sent: " + messageRequest.getMessage();
+    }
+
+    public static class MessageRequest {
+        private String destination;
+        private String message;
+
+        public String getDestination() {
+            return destination;
+        }
+
+        public void setDestination(String destination) {
+            this.destination = destination;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
+        }
     }
 }
