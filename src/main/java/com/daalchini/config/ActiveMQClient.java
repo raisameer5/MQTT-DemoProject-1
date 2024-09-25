@@ -13,9 +13,9 @@ import com.daalchini.utility.UniqueClientIDGenerator;
 
     public class ActiveMQClient {
     	
-        private final String BROKER_URL = "tcp://localhost:61616"; 
+        private final String BROKER_URL = "http://172.31.29.122:8161"; 
         private final String BROKER_USERNAME = "admin";  
-        private final String BROKER_PASSWORD = "admin";  
+        private final String BROKER_PASSWORD = "daalchini_noida";  
        
 
         
