@@ -23,12 +23,21 @@ public class Consumer {
 	private static final Logger logger = LoggerFactory.getLogger(Consumer.class);
 
 	
-	  @JmsListener(destination = "test-queue", containerFactory = "jmsListenerContainerFactory")
-	    public void listen(String message) {
-	      
-	        logger.info("Received message: {}", message);
-	  
-	        logger.info("Consumer with client ID: {} is active", UniqueClientIDGenerator.generateClientId());
+	 @JmsListener(destination = "dev.123", containerFactory = "jmsListenerContainerFactory")
+	    public void listenToDevTopic(String message) {
+	        logger.info("Received message from dev.123: {}", message);
+	    }
+
+	    // Listener for user.1223 topic
+	    @JmsListener(destination = "user.123", containerFactory = "jmsListenerContainerFactory")
+	    public void listenToUserTopic(String message) {
+	        logger.info("Received message from user.1223: {}", message);
+	    }
+
+	    // Listener for system.123 topic (Admins only)
+	    @JmsListener(destination = "system.123", containerFactory = "jmsListenerContainerFactory")
+	    public void listenToSystemTopic(String message) {
+	        logger.info("Received message from system.123: {}", message);
 	    }
 	    
 	    }
