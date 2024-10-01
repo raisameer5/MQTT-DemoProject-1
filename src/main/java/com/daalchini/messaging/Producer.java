@@ -11,16 +11,13 @@ public class Producer {
 	
 	 private static final Logger logger = LoggerFactory.getLogger(Producer.class);
 
-	
 	 @Autowired
-	    private JmsTemplate jmsTemplate;
+	 private JmsTemplate jmsTemplate;
 
 	 public void sendMessage(String destination, String message) {
 	        logger.info("Sending message: {} to destination: {}", message, destination);
+	        jmsTemplate.setPubSubDomain(true);  // Enable pub-sub mode for topics
 	        jmsTemplate.convertAndSend(destination, message);
 	        logger.info("Message sent successfully");
 	    }
-	        
-	    
-
 }
